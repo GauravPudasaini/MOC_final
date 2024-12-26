@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f6f8fd 0%, #e9edf7 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            background: white;
+        }
+
+        h1 {
+            color: #1a1f36;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 20px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .context-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            font-family: 'Menlo', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            border: 1px solid #e2e8f0;
+        }
+
+        .context-line {
+            color: #4a5568;
+            padding: 2px 0;
+        }
+
+        .match-line {
+            background: #e6f6ff;
+            margin: 4px -20px;
+            padding: 4px 20px;
+            border-left: 3px solid #4299e1;
+        }
+
+        .line-number {
+            color: #a0aec0;
+            margin-right: 16px;
+            user-select: none;
+        }
+
+        mark {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background: #e2e8f0;
+            margin: 32px 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            color: #2d3748;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+
+        .btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            align-self: flex-start;
+        }
+
+        .btn:hover {
+            background: #3182ce;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px;
+                border-radius: 16px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="POST">
+            <input type="hidden" name="textarea" value="{{ document_text }}">
+            <input type="hidden" name="url" value="{{ url }}">
+            <input type="text" name="pattern" id="pattern" placeholder="Enter search pattern..." required>
+            <button type="submit" class="btn">Search</button>
+        </form>
+        <h1>Search Results</h1>
+        {% if found %}
+            <h3>Match Found {% if match_count > 1 %}({{ match_count }} matches){% endif %}</h3>
+            <div class="context-box">
+                {{ context|safe }}
+            </div>
+        {% else %}
+            <h3 style="color: #e53e3e;">No Match Found</h3>
+            <p style="color: #718096;">Try modifying your search pattern and try again.</p>
+        {% endif %}
+        <hr>
+    </div>
+</body>
+</html>

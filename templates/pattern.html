@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Search Pattern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Include the same styles as the main page */
+        /* ... (copy all styles from the previous HTML) ... */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Search Pattern</h1>
+        <div class="document-preview">
+            {{ document_preview|safe }}
+        </div>
+        <form method="POST" action="{{ url_for('search_pattern') }}">
+            <input type="hidden" name="document_id" value="{{ document_id }}">
+            <div class="form-group">
+                <label for="search">Search Pattern</label>
+                <div class="input-wrapper">
+                    <input type="text" id="search" name="pattern" placeholder="Enter your search pattern" required>
+                </div>
+            </div>
+            <button type="submit">
+                Search Document
+            </button>
+        </form>
+    </div>
+</body>
+</html>
